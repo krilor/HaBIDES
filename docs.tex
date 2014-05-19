@@ -1,0 +1,122 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% Examples of Article customizations
+% These packages are optional, depending whether you want the features they provide.
+% See the LaTeX Companion or other references for full information.
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+% \geometry{margin=2in} % for example, change the margins to 2 inches all round
+% \geometry{landscape} % set up the page for landscape
+%   read geometry.pdf for detailed page layout information
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+% \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
+
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+
+%%% CUSTUM PACKAGED
+\usepackage{cite}
+
+%%% END Article customizations
+
+%%% The "real" document content comes below...
+
+\title{HaBIDES - Heat and Battery Integrated Domestic Energy Storage}
+\author{Kristoffer Lorentsen}
+%\date{} % Activate to display a given date or no date (if empty),
+         % otherwise the current date is printed 
+
+\begin{document}
+\maketitle
+
+\tableofcontents
+
+\section{Summary}
+
+HaBIDES is to become a model of a combined battery and hot water energy storage for domestic use. This document will explore the potential of such an energy storage solution and explain how the model works.
+
+I have started this project for numerous reasons. These include:
+
+\begin{itemize}
+	\item Investigate the potential in the energy storage solution
+	\item Try to develop a mathematical model of a real-world problem
+	\item Learn how to program a model in Python
+	\item Learn how to use LaTeX (formulas, graphs, refrencing, indexing)
+	\item Have a reason to investigate the future of Smart Grid and demand side response
+\end{itemize}
+
+\textbf{Note: I strive to make the information in this document and repo as accurate and true as possible, but it has not been reviewed by others than me. You can use it for whatever you want, but I can not guarantee that it is correct.}
+
+\section{Potential}
+
+The potential for a combined hot water and battery energy storage is defined by its capability to shift loads from peak-hours to times of lower demand. Norways (and the rest of the worlds) electricity demand varies throughout the day. Residential electricity use has two peaks in Norway, one at 9:00, and one between 18:00 and 23:00, depending on time of year \cite{TEricson2008}. The price of electricity rises with demand, therefore the user will benefit from a lower energy bill in the future when all measurements of energy use is done hourly\cite{AMSforskriften}. The grid operator will experience a lower peak which in turn might mitigate/replace future investments/upgrades.
+
+Integrating a capability to sell energy to the grid at peak hours will allow for further economic benefit for the end user. It will allow the system to buy at low price and sell at peak hours. Further introducing energy generation, in terms of solar PV, will add more benefit. In the future, such functionality will be added to the model.
+
+The rest of this chapter will provide the reader of backround information about the energy storage potential.
+
+\subsection{Hot water energy storage potential}
+The amount of energy contained within a hot water tank is limited by the amount of water and its temperature. Formula \ref{eq:heatstorage} gives this relation.
+\begin{equation} \label{eq:heatstorage}
+U(m,\Delta T) = m*\Delta T*C_{W}
+\end{equation}
+
+\begin{itemize}
+	\item $m$ - mass of water [kg]
+	\item $\Delta T$ - Adjustable temperature difference [$^{\circ}C$]
+	\item $C_{W}$ - Heat capacity of water - 4184 [$J/^{\circ}kg$]
+\end{itemize}
+
+The volume of a hot water tank - and subsequently the mass of water - varies depending on model and make. The model will investigate what a optimal volume will be.
+
+\subsubsection{Available temperature difference in a hot water tank}
+The available temperature difference in a hot water tank is limited by three factors:
+\begin{enumerate}
+	\item Maximum design temperature and pressure
+	\item Minimum temperature for mitigating legionella bacteria growth
+	\item The working temperature range of the thermostat 
+\end{enumerate}
+
+OSO's Super 8 hot water tanks safety thermostat is set at 98 $^{\circ}C$ and the hot water tank is designed for temperatures up to 99 $^{\circ}C$. The thermostats working range is 60-90 $^{\circ}C$. The Norwegian health authorities define minimum temperature for mitigating legionella bacteria growth as 65-70 $^{\circ}C$ \cite{Legionella2009}. Assuming that the thermostat will be replaced by a new one in the system, the available temperature span is 70-95 $^{\circ}C$, resulting in a temperature difference ($\Delta T$) of 25 $^{\circ}C$.
+
+
+
+\bibliography{bibli}{}
+\bibliographystyle{plain}
+
+\end{document}
