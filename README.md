@@ -1,4 +1,4 @@
-HaBIDES
+#HaBIDES
 =======
 
-Head and Battery Integrated Domestic Energy Storage
+Heat and Battery Integrated Domestic Energy Storage
