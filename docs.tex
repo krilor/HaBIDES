@@ -68,7 +68,7 @@
 
 \section{Summary}
 
-HaBIDES is to become a model of a combined battery and hot water energy storage for domestic use. This document will explore the potential of such an energy storage solution and explain how the model works.
+HaBIDES is to become a model of a combined battery and hot water energy storage solution for domestic use. This document will explore the potential of such an energy storage solution and explain how the model works.
 
 I have started this project for numerous reasons. These include:
 
@@ -88,12 +88,12 @@ The potential for a combined hot water and battery energy storage is defined by 
 
 Integrating a capability to sell energy to the grid at peak hours will allow for further economic benefit for the end user. It will allow the system to buy at low price and sell at peak hours. Further introducing energy generation, in terms of solar PV, will add more benefit. In the future, such functionality will be added to the model.
 
-The rest of this chapter will provide the reader of backround information about the energy storage potential.
+The rest of this chapter will provide the reader of background information about the energy storage potential.
 
 \subsection{Hot water energy storage potential}
 The amount of energy contained within a hot water tank is limited by the amount of water and its temperature. Formula \ref{eq:heatstorage} gives this relation.
 \begin{equation} \label{eq:heatstorage}
-U(m,\Delta T) = m*\Delta T*C_{W}
+U(m,\Delta T) = m \Delta T C_{W}
 \end{equation}
 
 \begin{itemize}
@@ -112,9 +112,81 @@ The available temperature difference in a hot water tank is limited by three fac
 	\item The working temperature range of the thermostat 
 \end{enumerate}
 
-OSO's Super 8 hot water tanks safety thermostat is set at 98 $^{\circ}C$ and the hot water tank is designed for temperatures up to 99 $^{\circ}C$. The thermostats working range is 60-90 $^{\circ}C$. The Norwegian health authorities define minimum temperature for mitigating legionella bacteria growth as 65-70 $^{\circ}C$ \cite{Legionella2009}. Assuming that the thermostat will be replaced by a new one in the system, the available temperature span is 70-95 $^{\circ}C$, resulting in a temperature difference ($\Delta T$) of 25 $^{\circ}C$.
+OSO's Super 8 hot water tanks safety thermostat is set at 98 $^{\circ}C$ and the hot water tank is designed for temperatures up to 99 $^{\circ}C$. The thermostats working range is 60-90 $^{\circ}C$. The Norwegian health authorities define minimum temperature for mitigating legionella bacteria growth as 65-70 $^{\circ}C$ \cite{Legionella2009}. Assuming that the thermostat will be replaced by a new one in the system, the available temperature span is 70-95 $^{\circ}C$, resulting in a temperature difference ($\Delta T$) of 25 $^{\circ}C$. Average energy use for a hot water tank i Norway is 3,066 kWh/day and new heaters heat loss is less than 70 W amounting to a maximum of  1,68 kWh/day \cite{EnergibrukHusholdning}.
+
+Using equation \ref{eq:heatstorage}, available heat storage capacity in a hot water tank of 200 l is 20,91 MJ  or 5,81 kWh. In theory, this allow us to heat the water to 95 $^{\circ}C$ at night when electricity is cheap and abundant and use it during the day when electricity is expensive.
+
+A hot water tank will usually use energy after the consumer uses hot water - to bring the temperature in the tank to its set level. Assuming that consumers shower and use hot water in the morning, this energy use will take place during the first daily electricity load peak. This simple calculation demonstrates the potential of the hot water storage solution.
+
+\subsubsection{Hot water distribution and consumption}
+Increasing the temperature of a hot water tank increases the risk of scalding. To ensure that this is not a problem, a thermostatic mixing valve (TMV) is usually used to blend hot water with cold water to create a constant and safe shower and bath outlet temperature. In this model and paper it is assumed that a self-contained TMV unit is used to keep the temperature of hot water in the distribution pipes and outlets at a constant, safe value.
+
+Hot water consumption is defined by a consumption volume flow rate, $\dot{V}_C$ [l/s]. The rate of energy used is defined by the volume flow rate and the consumption temperature, $T_C$ [$^{\circ}C$]. The model must therefore accept consumption as a function of $\dot{V} _C$ and $T_C$.
+
+\subsection{Model of hot water tank}
+In this chapter, I will develop a mathematical model for a hot water tank. I will develop the model under the following assumptions.
+
+\begin{itemize}
+	\item The contents (water) is idealy stirred.
+	\item The heat loss is constant, regardless of water temperature
+	\item Inflow and outflow will be equal
+\end{itemize}
+
+The energy balance is given in equation \ref{eq:energybalance}. Equations \ref{eq:heattransfer}, \ref{eq:energybymass}, \ref{eq:energybymasstime}, \ref{eq:tempout} and \ref{eq:volumeflow} can be used to simplify and specify the model of the water tank. The following list denotes all symbols used in the equations.
+
+\begin{equation} \label{eq:energybalance}
+\frac{dE}{dt} = \dot{E}_i - \dot{E}_o + \dot{Q}
+\end{equation}
+
+\begin{equation} \label{eq:heattransfer}
+\dot{Q} = \dot{Q}_E + \dot{Q}_L
+\end{equation}
+
+\begin{equation} \label{eq:energybymass}
+E = K + U + P \approx U = V \gamma _W C_W T
+\end{equation}
+
+\begin{equation} \label{eq:energybymasstime}
+\dot{E} = \dot{K} + \dot{U} + \dot{P} \approx \dot{U} = \dot{V} \gamma _W C_W T
+\end{equation}
+
+\begin{equation} \label{eq:tempout}
+T_o = T
+\end{equation}
+
+\begin{equation} \label{eq:volumeflow}
+V_o = V_i
+\end{equation}
 
 
+\begin{itemize}
+	\item E - Energy in a mass [J]
+	\item $\dot{E}$ - Energy flow [J/s]
+	\item K - Kinetic energy - in our case neglectible
+	\item U - Thermal energy [J]
+	\item P - Potential energy - in out case neglectible
+	\item T - Temperature in the tank [$^{\circ}C$]
+	\item $T_i$ - Temperature in the inflow water [$^{\circ}C$]
+	\item V - volume of tank [l]
+	\item $ \dot{V} _i$ - volume flow into the tank [l]
+	\item $\gamma _W$ - Specific weight of water - 1 [kg/l]
+	\item $\dot{Q_E}$ - Energy inflow from heater element [W] = [J/s]
+	\item $\dot{Q_L}$ - Energy heatloss from tank [W] = [J/s]
+\end{itemize}
+
+Using the equations, we can formulate the energy balance for the tank, as shown in equation \ref{eq:tankmodel}. Equation \ref{eq:tempfromenergy} can be used to calculate temperature T from the accumulated energy E. The model can be used to study the behavior of a hot water tank. To enable the consumption to be given as $\dot{V} _C$ and $T_C$, equation \ref{eq:flowfromcons} can be used.
+
+\begin{equation} \label{eq:tankmodel}
+\frac{dU}{dt} = (T_i-T) \dot{V}_o \gamma _W C_W + \dot{Q}_E - \dot{Q}_L
+\end{equation}
+
+\begin{equation} \label{eq:tempfromenergy}
+T(U) = \frac{U}{\gamma _W C_W V}
+\end{equation}
+
+\begin{equation} \label{eq:flowfromcons}
+\dot{V}_o (T_C,\dot{V} _C) = \dot{V} _C \frac{T_C - T_i}{T-T_i}
+\end{equation}
 
 \bibliography{bibli}{}
 \bibliographystyle{plain}
