@@ -128,7 +128,8 @@ In this chapter, I will develop a mathematical model for a hot water tank. I wil
 
 \begin{itemize}
 	\item The contents (water) is idealy stirred.
-	\item The heat loss is constant, regardless of water temperature
+	\item The heat loss varies with the temperature of the water
+	\item Environment temperature is constant
 	\item Inflow and outflow will be equal
 \end{itemize}
 
@@ -187,6 +188,30 @@ T(U) = \frac{U}{\gamma _W C_W V}
 \begin{equation} \label{eq:flowfromcons}
 \dot{V}_o (T_C,\dot{V} _C) = \dot{V} _C \frac{T_C - T_i}{T-T_i}
 \end{equation}
+
+\subsection{Heat loss from the water tank}
+Heat loss from the tank is assumed to be varying with temperature. OSO gives their heat loss as [kWh/day]. For the model we need the heat loss to be [W] as a function of temperature inside (T) and outside ($T_e$) the tank as shown in equation \ref{eq:tankheatloss}. I assume that there is a heat loss constant ($C_L$) for each individual water heater that can be calculated using equation \ref{eq:heatlossconstant}. $T_f$ is the factory temperature setting.  $Q_D$ is the given daily heat loss in [kWh/day]
+
+\begin{equation} \label{eq:tankheatloss}
+Q_L(T,T_e) = C_L ( T - T_e )
+\end{equation}
+
+\begin{equation} \label{eq:heatlossconstant}
+C_L(T_f, T_e) = \frac{Q_D 1000}{24 (T_f - T_e)}
+\end{equation}
+
+
+\section{Model test case}
+To test the model, the following test case will be used.
+\begin{itemize}
+	\item Tank volume is 200 l
+	\item Inflow water temperature is 10 [$^{\circ}C$]
+	\item A shower is assumed to be 
+	\item Standard tank temperature is 70 [$^{\circ}C$]
+\end{itemize}
+
+
+
 
 \bibliography{bibli}{}
 \bibliographystyle{plain}
